@@ -1,0 +1,130 @@
+pragma solidity ^0.6.0;
+
+import '../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol';
+import "../node_modules/@openzeppelin/contracts/utils/Counters.sol";
+
+
+contract StarNetwork is ERC721 {
+    using Counters for Counters.Counter;
+    Counters.Counter private generateId;
+
+    constructor() ERC721('StarNetwork', 'STARN') public payable {
+    }
+
+    struct Star {
+        string name;
+    }
+
+    mapping (uint256 => Star) public tokenId_StarInfo;
+    mapping (string => Star) public tokenName_StarInfo;
+    mapping (uint256 => uint256) public tokenId_Price;
+
+
+    modifier isUnique(string memory name) {
+        require(
+            keccak256(abi.encodePacked(tokenName_StarInfo[name].name)) != keccak256(abi.encodePacked(name)),
+            "Error: Someone already owns this star."
+        );
+        _;
+    }
+
+    modifier onlyOwnerOf(uint256 tokenId) {
+        require(
+            msg.sender == ownerOf(tokenId),
+            'Error: Only the owner of this star can list it for sale.'
+        );
+        _;
+    }
+
+    modifier greaterThanZero(uint256 price) {
+        require(
+            price > 0,
+            "Error: A price greater than zero is required to sell a star."
+        );
+        _;
+    }
+
+    modifier isUpForBarter(uint256 tokenId) {
+        require(
+            tokenId_Price[tokenId] > 0,
+            'Error: This star is not for sale or trade.'
+        );
+        _;
+    }
+
+    modifier hasEnoughFunds(uint256 tokenId) {
+        uint256 starCost = tokenId_Price[tokenId];
+        require(
+            msg.value > starCost,
+            'Error: Insufficient funds provided to purchase star.'
+        );
+        _;
+    }
+
+    modifier notSameOwner(uint256 senderToken, uint256 tradedToken) {
+        require(
+            msg.sender != ownerOf(tradedToken),
+            'Error: You cannot trade stars with yourself.'
+        );
+        _;
+    }
+
+    function makePayable(address provided)
+        internal pure returns (address payable seller) {
+            uint160 formattedProvided = uint160(provided);
+            seller = address(formattedProvided);
+    }
+
+    function approveTransaction(address buyer, uint256 tokenId)
+        internal {
+            this.approve(buyer, tokenId);
+    }
+
+    function createStar(string memory name)
+        public isUnique(name) {
+            Star memory createdStar = Star(name);
+            generateId.increment();
+            uint256 tokenId = generateId.current();
+            tokenId_StarInfo[tokenId] = createdStar;
+            tokenName_StarInfo[name] = createdStar;
+            _mint(msg.sender, tokenId);
+            setApprovalForAll(address(this), true);
+    }
+
+    function lookupStar(uint256 tokenId)
+        public view returns (string memory name, bool forSale,  uint256 price) {
+            name = tokenId_StarInfo[tokenId].name;
+            forSale = tokenId_Price[tokenId] > 0;
+            price = tokenId_Price[tokenId];
+    }
+
+    function listStarForBarter(uint256 tokenId, uint256 price)
+        public onlyOwnerOf(tokenId) greaterThanZero(price) {
+            tokenId_Price[tokenId] = price;
+    }
+
+    function buyStar(uint256 tokenId)
+        public isUpForBarter(tokenId) hasEnoughFunds(tokenId) payable {
+            uint256 starCost = tokenId_Price[tokenId];
+            address ownerAddress = ownerOf(tokenId);
+            address payable ownerAddressPayable = makePayable(ownerAddress);
+            approveTransaction(msg.sender, tokenId);
+            transferFrom(ownerAddress, msg.sender, tokenId);
+            ownerAddressPayable.transfer(starCost);
+            if (msg.value > starCost) {
+                msg.sender.transfer(msg.value - starCost);
+            }
+    }
+
+    function exchangeStar(uint256 senderToken, uint256 tradedToken) public
+        onlyOwnerOf(senderToken) isUpForBarter(tradedToken) notSameOwner(senderToken, tradedToken) {
+            address tradedTokenOwner = ownerOf(tradedToken);
+            transferFrom(msg.sender, tradedTokenOwner, senderToken);
+            transferFrom(tradedTokenOwner, msg.sender, tradedToken);
+    }
+
+    function transferStar(address to, uint256 tokenId) public
+        onlyOwnerOf(tokenId) {
+            transferFrom(msg.sender, to, tokenId);
+    }
+}
