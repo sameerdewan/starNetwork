@@ -99,8 +99,10 @@ describe('StarNetwork', () => {
         const tx = await web3.eth.getTransaction(hash);
         const receipt = await web3.eth.getTransactionReceipt(hash);
         const balance_post_transaction_user2 = await web3.eth.getBalance(user2);
-        const totalSpent = balance_pre_transaction_user2 - balance_post_transaction_user2;
-        assert.equal(totalSpent, Number(starPrice) + (tx.gasPrice * receipt.gasUsed));
+        assert.equal(
+            web3.utils.fromWei(balance_post_transaction_user2),
+            web3.utils.fromWei((balance_pre_transaction_user2 - starPrice - (tx.gasPrice * receipt.gasUsed)) + '')
+        );
     });
 
     it('should exchange stars between two users', async () => {
