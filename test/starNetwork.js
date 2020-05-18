@@ -101,7 +101,7 @@ describe('StarNetwork', () => {
         const balance_post_transaction_user2 = await web3.eth.getBalance(user2);
         assert.equal(
             web3.utils.fromWei(balance_post_transaction_user2),
-            web3.utils.fromWei((balance_pre_transaction_user2 - starPrice - (tx.gasPrice * receipt.gasUsed)) + '')
+            web3.utils.fromWei((balance_pre_transaction_user2 - starPrice - (tx.gasPrice * receipt.gasUsed)).toString())
         );
     });
 
