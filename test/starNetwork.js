@@ -6,6 +6,8 @@ describe('StarNetwork', () => {
     let instance;
     let user1;
     let user2;
+    let user3;
+    let user4;
     let starId = 1;
     let starName = () => `TestStar-${starId}`;
     let starPrice = web3.utils.toWei('0.1', 'ether');
@@ -19,6 +21,8 @@ describe('StarNetwork', () => {
             genesisAccount = accounts[0];
             user1 = accounts[1];
             user2 = accounts[2];
+            user3 = accounts[3];
+            user4 = accounts[4];
         });
     };
 
@@ -101,12 +105,34 @@ describe('StarNetwork', () => {
         const balance_post_transaction_user2 = await web3.eth.getBalance(user2);
         assert.equal(
             web3.utils.fromWei(balance_post_transaction_user2),
-            web3.utils.fromWei((balance_pre_transaction_user2 - starPrice - (tx.gasPrice * receipt.gasUsed)).toString())
+            web3.utils.fromWei((balance_pre_transaction_user2 - starPrice - (tx.gasPrice * receipt.gasUsed)) + '')
         );
     });
 
     it('should exchange stars between two users', async () => {
-        
+        await instance.createStar('ExchangeStar1', {from: user3}); // Star 8
+        await instance.listStarForBarter(8, starPrice, {from: user3});
+        await instance.createStar('ExchangeStar2', {from: user4}); // Star 9
+        await instance.listStarForBarter(9, starPrice, {from: user4});
+        // Prior to exchange
+        assert.equal(
+            await instance.ownerOf(8),
+            user3
+        );
+        assert.equal(
+            await instance.ownerOf(9),
+            user4
+        );
+        await instance.exchangeStar(8, 9, {from: user3});
+        // After exchange
+        assert.equal(
+            await instance.ownerOf(8),
+            user4
+        );
+        assert.equal(
+            await instance.ownerOf(9),
+            user3
+        );
     });
 
     it('should allow a user to transfer a star', async () => {
