@@ -13,6 +13,7 @@ contract StarNetwork is ERC721 {
 
     struct Star {
         string name;
+        uint256 id;
     }
 
     mapping (uint256 => Star) public tokenId_StarInfo;
@@ -82,20 +83,29 @@ contract StarNetwork is ERC721 {
 
     function createStar(string memory name)
         public isUnique(name) {
-            Star memory createdStar = Star(name);
             generateId.increment();
             uint256 tokenId = generateId.current();
+            Star memory createdStar = Star(name, tokenId);
             tokenId_StarInfo[tokenId] = createdStar;
             tokenName_StarInfo[name] = createdStar;
             _mint(msg.sender, tokenId);
             setApprovalForAll(address(this), true);
     }
 
-    function lookupStar(uint256 tokenId)
-        public view returns (string memory name, bool forSale,  uint256 price) {
+    function lookupStarById(uint256 tokenId)
+        public view returns (string memory name, bool forSale,  uint256 price, address owner) {
             name = tokenId_StarInfo[tokenId].name;
             forSale = tokenId_Price[tokenId] > 0;
             price = tokenId_Price[tokenId];
+            owner = ownerOf(tokenId);
+    }
+
+    function lookupStarByName(string memory name)
+        public view returns (uint256 tokenId, bool forSale, uint256 price, address owner) {
+            tokenId = tokenName_StarInfo[name].id;
+            forSale = tokenId_Price[tokenId] > 0;
+            price = tokenId_Price[tokenId];
+            owner = ownerOf(tokenId);
     }
 
     function listStarForBarter(uint256 tokenId, uint256 price)

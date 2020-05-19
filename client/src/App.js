@@ -38,10 +38,6 @@ class App extends React.Component {
     this.setState({web3Enabled: true});
   }
 
-  async lookupStar() {
-
-  }
-
   render() {
     if (this.state.web3Enabled === false) return (
       <div className={'center'}>
@@ -57,7 +53,20 @@ class App extends React.Component {
           <Route exact path={'/'}>
             <SearchStars history={this.props.history}/>
           </Route>
-          <Route exact path={'/stars/:starName'} render={(props) => <StarDetails {...props} account={this.account} web3={this.web3} />} />
+          <Route 
+            exact path={'/stars/:starName'} 
+            render={(props) => {
+                return (
+                  <StarDetails 
+                    {...props} 
+                    account={this.account} 
+                    web3={this.web3} 
+                    meta={this.meta} 
+                  />
+                )
+              }
+            } 
+          />
           <Redirect to={{pathname: "/"}} />
         </Switch>
       </React.Fragment>

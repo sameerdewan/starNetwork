@@ -6,11 +6,16 @@ class StarDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        starName: props.match.params.starName
+            starName: props.match.params.starName
         };
     }
 
     componentDidMount() {
+
+    }
+
+    async lookupStar() {
+        const {} = this.props.meta;
     }
 
     render() {
