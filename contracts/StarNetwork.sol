@@ -37,14 +37,6 @@ contract StarNetwork is ERC721 {
         _;
     }
 
-    modifier greaterThanZero(uint256 price) {
-        require(
-            price > 0,
-            "Error: A price greater than zero is required to sell a star."
-        );
-        _;
-    }
-
     modifier isUpForBarter(uint256 tokenId) {
         require(
             tokenId_Price[tokenId] > 0,
@@ -109,7 +101,7 @@ contract StarNetwork is ERC721 {
     }
 
     function listStarForBarter(uint256 tokenId, uint256 price)
-        public onlyOwnerOf(tokenId) greaterThanZero(price) {
+        public onlyOwnerOf(tokenId) {
             tokenId_Price[tokenId] = price;
     }
 

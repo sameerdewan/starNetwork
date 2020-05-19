@@ -5,8 +5,9 @@
 
 div.center {
     margin: 240px auto;
-    width: 500px;
+    max-width: 700px;
     text-align: center;
+    padding: 0px 10px;
 }
 
 div.star-details {
@@ -37,7 +38,7 @@ span.account-address {
 }
 
 .input-group-append > button {
-    width: 140px;
+    width: 160px;
 }
 
 span.first4, span.last4, span.star {
@@ -59,4 +60,20 @@ span.star {
 
 span.descr {
     font-weight: 100;
+}
+
+div.note-nest {
+    width: 300px;
+    text-align: left;
+    position: absolute;
+    left: 100px;
+    top: 150px;
+    border: 1px solid deeppink;
+    padding: 20px;
+    background: white;
+}
+
+div.note-nest i {
+    font-size: 25px;
+    color: deeppink;
 }

@@ -6,6 +6,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 
 function MyStar(props) {
   const [transferValue, setTransferValue] = useState('');
+  const [priceValue, setPriceValue] = useState();
     return (
       <div>
         You own this star!
@@ -27,7 +28,7 @@ function MyStar(props) {
                     } catch (error) {
                       console.log({error})
                     }
-                  }}>Transfer</Button>
+                  }}>Transfer <i className="fas fa-paper-plane"></i></Button>
                 </InputGroup.Append>
               </InputGroup>
               or
@@ -37,11 +38,19 @@ function MyStar(props) {
                   placeholder="Price to barter for"
                   aria-label="Put up for sale"
                   aria-describedby="basic-addon2"
+                  value={priceValue}
+                  onChange={e => {
+                    setPriceValue(e.target.value);
+                  }}
                 />
                 <InputGroup.Append>
-                  <Button onClick={() => {
-                  
-                  }}>List Barter</Button>
+                  <Button onClick={async () => {
+                    try {
+                      await props.listStarForBarter(props.tokenId, priceValue).send({from: props.account});
+                    }  catch (error) {
+
+                    }
+                  }}>List Barter <i className="fas fa-hand-holding-usd"></i></Button>
                 </InputGroup.Append>
               </InputGroup>
           </div>

@@ -25,11 +25,11 @@ class SearchStars extends React.Component {
                 <Button variant="outline-primary" onClick={() => {
                   if (this.state.searchValue.trim() === '') return;
                   this.props.history.push(`/stars/name/${this.state.searchValue}`);
-                }}>Search name</Button>
+                }}>Search name <i className="fas fa-file-signature"></i></Button>
                 <Button variant="outline-primary" onClick={() => {
                   if (this.state.searchValue.trim() === '') return;
                   this.props.history.push(`/stars/id/${this.state.searchValue}`);
-                }}>Search tokenId</Button>
+                }}>Search tokenId <i className="fas fa-fingerprint"></i></Button>
               </InputGroup.Append>
             </InputGroup>
         </div>
