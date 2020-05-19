@@ -43,7 +43,7 @@ describe('StarNetwork', () => {
     it('should create a star', async () => {
         await instance.createStar(starName(), {from: genesisAccount});
         const testStar = await instance.tokenId_StarInfo(starId);
-        assert.equal(testStar, starName());
+        assert.equal(testStar['0'], starName());
     });
 
     it('should allow owner (user1) to sell token owned by owner (user1)', async () => {
@@ -150,11 +150,18 @@ describe('StarNetwork', () => {
         );
     });
 
-    it('should be able to lookup a star', async () => {
-        const {name} = await instance.lookupStar(1);
-        const {name: name2} = await instance.lookupStar(2);
+    it('should be able to lookup a star by id', async () => {
+        const {name} = await instance.lookupStarById(1);
+        const {name: name2} = await instance.lookupStarById(2);
         assert.equal(name, 'TestStar-1');
         assert.equal(name2, 'TestStar-2');
+    });
+
+    it('should be able to lookup a star by name', async () => {
+        const {tokenId} = await instance.lookupStarByName('TestStar-1');
+        const {tokenId: tokenId2} = await instance.lookupStarByName('TestStar-2');
+        assert.equal(tokenId, 1);
+        assert.equal(tokenId2, 2);
     });
 
     it('should have the correct symbol and name', async () => {
