@@ -54,7 +54,7 @@ class App extends React.Component {
             <SearchStars history={this.props.history}/>
           </Route>
           <Route 
-            exact path={'/stars/:starName'} 
+            exact path={'/stars/:searchType/:star'} 
             render={(props) => {
                 return (
                   <StarDetails 
