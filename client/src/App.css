@@ -1,0 +1,19 @@
+.navbar-light .navbar-brand {
+    color: white !important;
+    cursor: pointer;
+}
+
+div.center {
+    margin: 240px auto;
+    width: 500px;
+    text-align: center;
+}
+
+div.star-details {
+    text-align: center;
+    margin-top: 100px;
+}
+
+div.available {
+    margin-top: 50px;
+}
