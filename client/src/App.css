@@ -35,3 +35,28 @@ span.account-address {
 .dropdown-toggle:empty::after {
     color: white;
 }
+
+.input-group-append > button {
+    width: 140px;
+}
+
+span.first4, span.last4, span.star {
+    font-size: 150px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+span.first4 {
+    color: dodgerblue;
+}
+
+span.last4 {
+    color: lightseagreen;
+}
+
+span.star {
+    color: tomato;
+}
+
+span.descr {
+    font-weight: 100;
+}

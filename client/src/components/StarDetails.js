@@ -1,7 +1,8 @@
 import React from 'react';
 import Jdenticon from 'react-jdenticon';
 import Spinner from 'react-bootstrap/Spinner';
-
+import Button from 'react-bootstrap/Button';
+import MyStar from './MyStar';
 
 class StarDetails extends React.Component {
     constructor(props) {
@@ -16,9 +17,11 @@ class StarDetails extends React.Component {
                 forSale: undefined,
                 price: undefined,
                 owner: undefined,
-                isOwner: undefined
+                isOwner: undefined,
+                starExists: undefined
             },
-            loading: true
+            loading: true,
+            couldNotFind: undefined
         };
     }
 
@@ -27,41 +30,87 @@ class StarDetails extends React.Component {
     }
 
     async lookupStar() {
+        // return await this.props.meta.methods.createStar('Sameer').send({from: this.state.account});
         if (this.state.searchType === 'id') {
             const {lookupStarById} = this.props.meta.methods;
-            const _details = await lookupStarById(this.state.star).call();
-            this.setState({
-                details: {
-                    name: _details[0],
-                    tokenId: this.state.star,
-                    forSale: _details[1],
-                    price: _details[2],
-                    owner: _details[3],
-                    isOwner: _details[3] === this.state.account
-                },
-                loading: false
-            });
-            return;
+            try {
+                const _details = await lookupStarById(`${this.state.star}`).call();
+                this.setState({
+                    details: {
+                        name: _details[0],
+                        tokenId: this.state.star,
+                        forSale: _details[1],
+                        price: _details[2],
+                        owner: _details[3],
+                        isOwner: _details[3] === this.state.account
+                    },
+                    loading: false,
+                    couldNotFind: false
+                });
+                return;
+            } catch (error) {
+                this.setState({loading: false, couldNotFind: true});
+            }
+            
         }
         if (this.state.searchType === 'name') {
             const {lookupStarByName} = this.props.meta.methods;
             const _details = await lookupStarByName(this.state.star).call();
+            const originator = '0x6E00000000000000000000000000000000000000';
             this.setState({
                 details: {
                     name: this.state.star,
-                    tokenId: _details[0],
+                    tokenId: _details[3] === originator ? 'N/A' : _details[0],
                     forSale: _details[1],
                     price: _details[2],
-                    owner: _details[3],
+                    owner: _details[3] === originator ? 'N/A' : _details[3],
                     isOwner: _details[3] === this.state.account
                 },
                 loading: false
             });
             return;
         }
+        
+    }
+
+    renderDetails() {
+        if (this.state.details.isOwner === true) {
+            return (
+                <MyStar 
+                    transferStar={this.props.meta.methods.transferStar} 
+                    tokenId={this.state.details.tokenId} 
+                    account={this.state.account}
+                />
+            );
+        }
+        if (this.state.details.owner === 'N/A') {
+            // StarAvailabe props=NO OWNER -> Create Star
+        }
+        if (this.state.details.forSale === true) {
+            // StarAvailable=OWNER -> Exchange/Buy Star
+        }
+        if (this.state.details.forSale === false) {
+            // StarUnavailable
+        }
     }
 
     render() {
+        if (this.state.loading === false && this.state.couldNotFind === true && this.state.searchType === 'id') {
+            return (
+                <div className={'center'}>
+                    <span className={'first4'}>4</span>
+                    <span className={'star'}>★</span>
+                    <span className={'last4'}>4</span>
+                    <br />
+                    <b>Oops, looks like this one was sucked into a black hole somewhere.</b>
+                    <br /><br/>
+                    <span className={'descr'}>A star with the id <u>{this.state.star}</u> could not be found.</span>
+                    <br />
+                    <br />
+                    <Button onClick={() => this.props.history.push('/')}>Go back</Button>
+                </div>
+            );
+        }
         if (this.state.loading === true) {
             return (
                 <div className={'center'}>
@@ -72,10 +121,14 @@ class StarDetails extends React.Component {
             );
         }
         return (
-        <div className={'star-details'}>
-            <Jdenticon size="200" value={this.state.star} />
-            {this.state.star}
-        </div>
+            <div className={'star-details'}>
+                <Jdenticon size="200" value={this.state.star} />
+                <b>Name</b>: {this.state.details.name}
+                <br/>
+                <b>Id</b>: {this.state.details.tokenId}
+                <hr />
+                {this.renderDetails()}
+            </div>
         );
     }
 }

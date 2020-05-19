@@ -13106,13 +13106,13 @@
         }
       },
       "links": {},
-      "address": "0x8435653754DA4A824dFbC1be101CeF38cEA9De97",
-      "transactionHash": "0x60e1737f4296d94d587654a6cfc684f54cacc571f98ee9931ac3774603676d6f"
+      "address": "0x168A7831069fC4634a1d97bD216Ee259e2135FA2",
+      "transactionHash": "0xfce704ff46aaca9284c8cb9e84872ef9988494f99886f8e444c6791388699a00"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-19T16:25:51.372Z",
-  "networkType": "ethereum",
+  "updatedAt": "2020-05-19T21:09:22.953Z",
+  "networkType": "quorum",
   "devdoc": {
     "methods": {
       "approve(address,uint256)": {
