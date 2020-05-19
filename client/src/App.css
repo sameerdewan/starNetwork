@@ -17,3 +17,21 @@ div.star-details {
 div.available {
     margin-top: 50px;
 }
+
+.spinner-grow {
+    height: 300px;
+    width: 300px;
+}
+
+span.account-address {
+    position: relative;
+    color: white;
+    border: 1px solid white;
+    padding-top: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.dropdown-toggle:empty::after {
+    color: white;
+}
