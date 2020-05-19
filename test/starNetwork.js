@@ -136,7 +136,18 @@ describe('StarNetwork', () => {
     });
 
     it('should allow a user to transfer a star', async () => {
-
+        await instance.createStar('TransferStar', {from: user3}); // 10
+        // Pre-Transfer
+        assert.equal(
+            await instance.ownerOf(10),
+            user3
+        );
+        // Post-Transfer
+        await instance.transferStar(user4, 10, {from: user3});
+        assert.equal(
+            await instance.ownerOf(10),
+            user4
+        );
     });
 
     it('should be able to lookup a star', async () => {
