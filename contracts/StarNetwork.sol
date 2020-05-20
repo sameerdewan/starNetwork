@@ -126,6 +126,7 @@ contract StarNetwork is ERC721 {
             _transfer(tradedTokenOwner, msg.sender, tradedToken);
             approveTransaction(tradedTokenOwner, senderToken);
             _transfer(msg.sender, tradedTokenOwner, senderToken);
+            listStarForBarter(tradedToken, 0);
     }
 
     function transferStar(address to, uint256 tokenId) public

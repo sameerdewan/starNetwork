@@ -4,6 +4,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import MyStar from './MyStar';
 import StarAvailable from './StarAvailable';
+import StarUnavailable from './StarUnavailable';
 
 class StarDetails extends React.Component {
     constructor(props) {
@@ -108,7 +109,9 @@ class StarDetails extends React.Component {
             );
         }
         if (this.state.details.forSale === false) {
-            // StarUnavailable
+            return (
+                <StarUnavailable />
+            );
         }
     }
 
