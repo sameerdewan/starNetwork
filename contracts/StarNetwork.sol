@@ -110,11 +110,13 @@ contract StarNetwork is ERC721 {
             address ownerAddress = ownerOf(tokenId);
             address payable ownerAddressPayable = makePayable(ownerAddress);
             approveTransaction(msg.sender, tokenId);
-            transferFrom(ownerAddress, msg.sender, tokenId);
+            _transfer(ownerAddress, msg.sender, tokenId);
+            setApprovalForAll(address(this), true);
             ownerAddressPayable.transfer(starCost);
             if (msg.value > starCost) {
                 msg.sender.transfer(msg.value - starCost);
             }
+            listStarForBarter(tokenId, 0);
     }
 
     function exchangeStar(uint256 senderToken, uint256 tradedToken) public

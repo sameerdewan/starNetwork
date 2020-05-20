@@ -157,7 +157,7 @@ class StarDetails extends React.Component {
                     <><b>Owner:</b> {this.state.details.owner}<br/><br/></> : <br/>
                 }
                 {this.state.details.forSale === true && this.state.details.owner !== 'N/A' ? 
-                <code>For Sale: <i className="fab fa-ethereum"></i>{this.state.details.price} ETH</code> : ''}
+                <code>For Sale: <i className="fab fa-ethereum"></i>{this.state.details.price} WEI</code> : ''}
                 {this.state.forSale === true ? <hr/> : ''}
                 <br/><br/>
                 {(this.state.details.forSale === true && this.state.details.isOwner === true) ? 
