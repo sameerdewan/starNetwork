@@ -3,6 +3,7 @@
 ## Introduction
 
 > This is the Udacity project submission 'Build CryptoStar Dapp on Ethereum' by Sameer Dewan.
+
 > This project utilizes Jdenticon (https://jdenticon.com/) to generate unique, one of a kind stars you truly feel you own (and in essense, do own!).
 
 
