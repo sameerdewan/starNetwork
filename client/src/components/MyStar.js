@@ -9,7 +9,7 @@ function MyStar(props) {
   const [priceValue, setPriceValue] = useState();
     return (
       <div>
-        You own this star!
+        <code><b><u>You own this star!</u></b></code>
         <div className={'center available'}>
               <InputGroup className="mb-3">
                 <FormControl
@@ -35,7 +35,7 @@ function MyStar(props) {
               <br/> <br/>
               <InputGroup className="mb-3">
                 <FormControl
-                  placeholder="Price to barter for"
+                  placeholder="Price to barter wei"
                   aria-label="Put up for sale"
                   aria-describedby="basic-addon2"
                   value={priceValue}

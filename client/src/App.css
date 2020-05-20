@@ -4,7 +4,7 @@
 }
 
 div.center {
-    margin: 240px auto;
+    margin: 100px auto;
     max-width: 700px;
     text-align: center;
     padding: 0px 10px;
@@ -12,7 +12,7 @@ div.center {
 
 div.star-details {
     text-align: center;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 
 div.available {
@@ -28,9 +28,7 @@ span.account-address {
     position: relative;
     color: white;
     border: 1px solid white;
-    padding-top: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+    padding: 10px;
 }
 
 .dropdown-toggle:empty::after {
@@ -76,4 +74,32 @@ div.note-nest {
 div.note-nest i {
     font-size: 25px;
     color: deeppink;
+}
+
+body {
+    overflow: hidden;
+}
+
+div.info {
+    border: 1px solid dodgerblue;
+    border-top: none;
+    width: fit-content;
+    margin-left: 10px;
+    padding: 5px;
+    text-align: center;
+    cursor: n-resize;
+}
+
+div.info code {
+    color: dodgerblue;
+}
+
+div.available {
+    padding-top: 50px;
+    width: fit-content;
+    margin: auto auto;
+}
+
+button {
+    min-width: fit-content;
 }

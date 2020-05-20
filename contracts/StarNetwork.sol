@@ -46,9 +46,8 @@ contract StarNetwork is ERC721 {
     }
 
     modifier hasEnoughFunds(uint256 tokenId) {
-        uint256 starCost = tokenId_Price[tokenId];
         require(
-            msg.value > starCost,
+            msg.value > tokenId_Price[tokenId],
             'Error: Insufficient funds provided to purchase star.'
         );
         _;

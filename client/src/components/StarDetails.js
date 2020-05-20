@@ -3,6 +3,7 @@ import Jdenticon from 'react-jdenticon';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import MyStar from './MyStar';
+import StarAvailable from './StarAvailable';
 
 class StarDetails extends React.Component {
     constructor(props) {
@@ -39,7 +40,7 @@ class StarDetails extends React.Component {
                         name: _details[0],
                         tokenId: this.state.star,
                         forSale: _details[1],
-                        price: this.props.web3.utils.fromWei(_details[2]),
+                        price: _details[2],
                         owner: _details[3],
                         isOwner: _details[3] === this.state.account
                     },
@@ -61,7 +62,7 @@ class StarDetails extends React.Component {
                     name: this.state.star,
                     tokenId: _details[3] === originator ? 'N/A' : _details[0],
                     forSale: _details[1],
-                    price: this.props.web3.utils.fromWei(_details[2]),
+                    price: _details[2],
                     owner: _details[3] === originator ? 'N/A' : _details[3],
                     isOwner: _details[3] === this.state.account
                 },
@@ -84,10 +85,26 @@ class StarDetails extends React.Component {
             );
         }
         if (this.state.details.owner === 'N/A') {
-            // StarAvailabe props=NO OWNER -> Create Star
+            return (
+                <StarAvailable
+                    owner={this.state.details.owner}
+                    account={this.state.account}
+                    createStar={this.props.meta.methods.createStar}
+                    starName={this.state.star}
+                />
+            );
         }
         if (this.state.details.forSale === true) {
-            // StarAvailable=OWNER -> Exchange/Buy Star
+            console.log(this.state.details.price)
+            return (
+                <StarAvailable 
+                    owner={this.state.details.owner}
+                    account={this.state.account}
+                    buyStar={this.props.meta.methods.buyStar}
+                    tokenId={this.state.details.tokenId}
+                    price={this.state.details.price}
+                />
+            );
         }
         if (this.state.details.forSale === false) {
             // StarUnavailable
@@ -130,11 +147,15 @@ class StarDetails extends React.Component {
                          a successful transaction. Otherwise, the information on this page may be outdated.
                     </code> 
                 </div>
-                <Jdenticon size="200" value={this.state.star} />
-                <b>Name</b>: {this.state.details.name}
+                <Jdenticon size="200" value={this.state.details.name} />
+                <b>Star</b>: {this.state.details.name}
                 <br/>
                 <b>Id</b>: {this.state.details.tokenId}
-                <br/><br/>
+                <br/>
+                {
+                    this.state.details.owner !== 'N/A' ?
+                    <><b>Owner:</b> {this.state.details.owner}<br/><br/></> : <br/>
+                }
                 {this.state.details.forSale === true && this.state.details.owner !== 'N/A' ? 
                 <code>For Sale: <i className="fab fa-ethereum"></i>{this.state.details.price} ETH</code> : ''}
                 {this.state.forSale === true ? <hr/> : ''}

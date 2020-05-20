@@ -49,6 +49,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <NavBar history={this.props.history} account={this.account}/>
+        <div style={{display: 'inline-flex'}}>
+          <div className={'info'}><code><i class="fas fa-arrow-up"></i> Click the StarNetwork logo to go home.</code></div>
+          <div className={'info'}><code><i class="fas fa-arrow-up"></i> This is your current user address provided by Metamask.</code></div>
+        </div>
         <Switch>
           <Route exact path={'/'}>
             <SearchStars history={this.props.history}/>
