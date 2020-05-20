@@ -9,7 +9,11 @@
 
 > This project utilizes create-react-app. To run the client, ``cd client``, run ``npm install`` and then ``npm start``. To test the contract code, in the main directory run ``truffle develop`` and then in the truffle console, run ``test``.
 
-> Metamask must be installed. To test, try using two users who can trade, transfer, and sell stars to each other.
+> Metamask must be installed.
+
+## Testing
+
+> To test, try using two users who can trade, transfer, and sell stars to each other. https://faucet.rinkeby.io/ is a good place to go to get test network ether for this purpose, to fill both accounts. I recommend sending enough ether to one address, and then from Metamask transfer half to the second account address, as Rinkeby Faucet will place a limit on the amount of ether you can receive a day.
 
 ## Features
 
