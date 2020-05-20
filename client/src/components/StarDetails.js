@@ -103,6 +103,7 @@ class StarDetails extends React.Component {
                     buyStar={this.props.meta.methods.buyStar}
                     tokenId={this.state.details.tokenId}
                     price={this.state.details.price}
+                    exchangeStar={this.props.meta.methods.exchangeStar}
                 />
             );
         }

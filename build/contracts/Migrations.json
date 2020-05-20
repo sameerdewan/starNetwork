@@ -916,12 +916,12 @@
     "4": {
       "events": {},
       "links": {},
-      "address": "0x1db53841B9A3a6F769d700Dc8fc4c3f3Eb31C198",
-      "transactionHash": "0xb8af5ebea74511f1d12603313b558c63cdc34064ddbfae5a1f88e43f8e1fe0db"
+      "address": "0x67b3A0f5FC719EC34A7b0cd8dc8135e486D5fE95",
+      "transactionHash": "0xeabbcfdf6667761ed07530cc267b2e3c50fd1f06f6f6852f587d006fee920a4b"
     }
   },
   "schemaVersion": "3.1.0",
-  "updatedAt": "2020-05-20T16:49:35.679Z",
+  "updatedAt": "2020-05-20T17:30:51.041Z",
   "networkType": "quorum",
   "devdoc": {
     "methods": {}

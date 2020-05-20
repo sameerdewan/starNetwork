@@ -123,9 +123,9 @@ contract StarNetwork is ERC721 {
         onlyOwnerOf(senderToken) isUpForBarter(tradedToken) notSameOwner(senderToken, tradedToken) {
             address tradedTokenOwner = ownerOf(tradedToken);
             approveTransaction(msg.sender, tradedToken);
-            transferFrom(tradedTokenOwner, msg.sender, tradedToken);
+            _transfer(tradedTokenOwner, msg.sender, tradedToken);
             approveTransaction(tradedTokenOwner, senderToken);
-            transferFrom(msg.sender, tradedTokenOwner, senderToken);
+            _transfer(msg.sender, tradedTokenOwner, senderToken);
     }
 
     function transferStar(address to, uint256 tokenId) public
