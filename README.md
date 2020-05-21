@@ -14,10 +14,15 @@
 > Metamask must be installed.
 
 > Truffle v5.1.26 (core: 5.1.26)
+
 > Solidity - ^0.6.0 (solc-js)
+
 > Node v10.16.3
+
 > Web3.js v1.2.1
+
 > @truffle/hdwallet-provider - 1.0.35
+
 > @openzeppelin/contracts - 3.0.1
 
 > Contract https://rinkeby.etherscan.io/address/0x4cb644a1d070a42f49599923dd09a05c158f51d5
