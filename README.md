@@ -13,6 +13,13 @@
 
 > Metamask must be installed.
 
+> Truffle v5.1.26 (core: 5.1.26)
+> Solidity - ^0.6.0 (solc-js)
+> Node v10.16.3
+> Web3.js v1.2.1
+> @truffle/hdwallet-provider - 1.0.35
+> @openzeppelin/contracts - 3.0.1
+
 ## How can I test out this cool application??
 
 > To test, try using two users who can trade, transfer, and sell stars to each other. https://faucet.rinkeby.io/ is a good place to go to get test network ether for this purpose, to fill both accounts. I recommend sending enough ether to one address, and then from Metamask transfer half to the second account address, as Rinkeby Faucet will place a limit on the amount of ether you can receive a day.
