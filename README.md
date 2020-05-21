@@ -20,6 +20,9 @@
 > @truffle/hdwallet-provider - 1.0.35
 > @openzeppelin/contracts - 3.0.1
 
+> Contract https://rinkeby.etherscan.io/address/0x4cb644a1d070a42f49599923dd09a05c158f51d5
+> Token Tracker https://rinkeby.etherscan.io/token/0x4cb644a1d070a42f49599923dd09a05c158f51d5
+
 ## How can I test out this cool application??
 
 > To test, try using two users who can trade, transfer, and sell stars to each other. https://faucet.rinkeby.io/ is a good place to go to get test network ether for this purpose, to fill both accounts. I recommend sending enough ether to one address, and then from Metamask transfer half to the second account address, as Rinkeby Faucet will place a limit on the amount of ether you can receive a day.
